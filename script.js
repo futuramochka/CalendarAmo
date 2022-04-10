@@ -69,7 +69,6 @@ class calendar{
         }
        
         let rowTbody = document.querySelectorAll("tbody .table-row");
-        console.log(rowTbody)
         for(let valueRow = 0; valueRow < rowTbody.length; valueRow++){
             for(let dayRowTbody in this.objDay){
                 let elemRow = rowTbody[valueRow];
@@ -214,7 +213,6 @@ class calendar{
         let leterMonth = grandDate.getMonth();
         allDay(leterMonth);
         let allDayInMonthPrev = new Date().daysInMonth();
-        console.log("Прошлый месяц: "+allDayInMonthPrev);
 
         let nextMonthDayCounter = 1;
         let numExtraZero = 1;
@@ -244,7 +242,6 @@ class calendar{
                 Index.push(index);
             }
         }
-        console.log(Index)
         for(let i = 0; i < column.length; i++){
             if(i >= Index[0] && i < Index[1]){
                 column[i].style.fontWeight = "bold"
