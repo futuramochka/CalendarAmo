@@ -21,8 +21,8 @@ class calendar{
 
         //For carousel view Month
         this.carousel = "<div class='carousel-button'></div>";
-        this.buttonPrev = "<button num='1' class='prev button'>Предыдущий</button>";
-        this.buttonNext = "<button num='2' class='next button'>Следующий</button>";
+        this.buttonPrev = "<button num='1' class='prev button'>&larr;</button>";
+        this.buttonNext = "<button num='2' class='next button'>&rarr;</button>";
         this.nameMonth = "<p month='3' class='name-month'></p>";
         this.objNameMonth = {
             0 : "Январь",
