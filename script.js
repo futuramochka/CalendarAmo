@@ -1,7 +1,6 @@
-let section = document.querySelector(".calendar-day");
-
 class calendar{
     constructor(){
+        //For Table Calendar
         this.table = "<table class='table-calendar'></table>";
         this.thead = "<thead></thead>";
         this.tbody = "<tbody></tbody>";
@@ -18,6 +17,9 @@ class calendar{
             5 : "сб",
             6 : "вс"
         }
+        this.sectionCalendar = document.querySelector(".calendar-day");
+
+        //For carousel view Month
         this.carousel = "<div class='carousel-button'></div>";
         this.buttonPrev = "<button num='1' class='prev button'>Предыдущий</button>";
         this.buttonNext = "<button num='2' class='next button'>Следующий</button>";
@@ -39,11 +41,14 @@ class calendar{
     }
 
     createTableCalendar(){
-        section.innerHTML = this.table;
-        let table = document.querySelector(".table-calendar");
+        this.sectionCalendar.innerHTML = this.table;
+
+        let table = document.querySelector(".table-calendar");;
         table.innerHTML = this.thead;
+
         let thead = document.querySelector("thead");
         thead.innerHTML = this.row;
+
         let row = document.querySelector(".table-row");
         for(let dayRow in this.objDay){
             row.insertAdjacentHTML("beforeend", this.columnHead);
@@ -74,15 +79,19 @@ class calendar{
 
         //Создаём кнопки перелистывания месяца с одображением текущего месяца
         table.insertAdjacentHTML('afterend', this.carousel);
+
         let carousel = document.querySelector(".carousel-button");
         carousel.insertAdjacentHTML('beforeend',this.buttonPrev);
         carousel.insertAdjacentHTML('beforeend', this.nameMonth);
         carousel.insertAdjacentHTML('beforeend', this.buttonNext);
+
+        //Берём текущий месяц из атрибута month
         let nameMonth = document.querySelector(".name-month");
-        let todayMonth = nameMonth.getAttribute("month"); //Задаём текущий месяц
+        let todayMonth = nameMonth.getAttribute("month");
         todayMonth = Number(todayMonth);
         
-        nameMonth.innerHTML = this.objNameMonth[Number(todayMonth)]+" 2022г."; //Показываем текущий месяц на странице
+        //Показываем текущий месяц на странице
+        nameMonth.innerHTML = this.objNameMonth[Number(todayMonth)]+" 2022г.";
         
         return this;
     }
@@ -108,7 +117,6 @@ class calendar{
         }
         
         let objName = this.objNameMonth;
-        let resultMonth = 0;
         
         switch(buttonNum){
             case "1" : 
@@ -130,12 +138,45 @@ class calendar{
         }
     }
 
+    getNameMonth(){
+        let buttonsCalendar = document.querySelectorAll(".button");
+
+
+        for(let item of buttonsCalendar){
+            item.addEventListener('click', calendarInternal.handleEvent);
+        }
+    }
+
+    setNameMonth(){
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                let nameMonth = Month.getAttribute('month');
+                calendarInternal.DateNum(nameMonth);
+
+                let element = document.querySelectorAll(".table-day--num");
+                for(let item of element){
+                    item.style = " "
+                }
+                calendarInternal.colorCalendar()
+            }) 
+        })    
+        
+        observer.observe(
+            Month,
+            {
+                attributes: true,
+                attributeOldValue: true,
+            }
+        );
+    }
+
     DateNum(nameMonth){
         let grandMonth = nameMonth;
         
         let grandDate = new Date ();
         grandDate.setMonth(grandMonth);
         let todayMonth = grandDate.getMonth()
+
         allDay(todayMonth);
         function allDay(month){
             Date.prototype.daysInMonth = function() {
@@ -164,11 +205,16 @@ class calendar{
                 allElemColumn.push(elemColumn[u]);
             }
         }
+
         let sunday = 1;
         let cursorForFirstDay = firstDayInMonth - sunday;
         let cursorForLastMonthDay = allDayInMonth + cursorForFirstDay;
 
+        grandDate.setMonth(month-1)
+        let leterMonth = grandDate.getMonth();
+        allDay(leterMonth);
         let allDayInMonthPrev = new Date().daysInMonth();
+        console.log("Прошлый месяц: "+allDayInMonthPrev);
 
         let nextMonthDayCounter = 1;
         let numExtraZero = 1;
@@ -176,19 +222,14 @@ class calendar{
         for(let item in allElemColumn){
             if(item >= cursorForFirstDay && item < cursorForLastMonthDay){
                 allElemColumn[item].innerHTML = (Number(item)-(cursorForFirstDay-1));
-                //allElemColumn[item].style.fontWeight = "bold";
             }else if(item >= cursorForLastMonthDay){
                 allElemColumn[item].innerHTML = nextMonthDayCounter;
-                //allElemColumn[item].style.color = "gray";
                 nextMonthDayCounter++;
             }else if(item < cursorForFirstDay){
                 let allItem = cursorForFirstDay - (Number(item)+numExtraZero);
                 allElemColumn[item].innerHTML = allDayInMonthPrev - allItem;
-                //allElemColumn[item].style.color = "gray";
             }
         }
-
-        return this;
     }
 
     colorCalendar(){
@@ -199,13 +240,16 @@ class calendar{
         column.forEach(getElementColumn);
 
         function getElementColumn(item, index){
-            if(item.innerHTML == "1"){
+            if(item.innerHTML === "1"){
                 Index.push(index);
             }
         }
+        console.log(Index)
         for(let i = 0; i < column.length; i++){
             if(i >= Index[0] && i < Index[1]){
-                column[i].style.color = "red"
+                column[i].style.fontWeight = "bold"
+            }else{
+               column[i].style.color = "gray"
             }
         }
     }
@@ -213,34 +257,12 @@ class calendar{
 
 let calendarInternal = new calendar();
 calendarInternal.createTableCalendar();
-let buttonsCalendar = document.querySelectorAll(".button");
-
-
-for(let item of buttonsCalendar){
-    item.addEventListener('click', calendarInternal.handleEvent);
-}
 
 let Month = document.querySelector('.name-month');
 let nameMonth = Month.getAttribute('month');
 calendarInternal.DateNum(nameMonth);
 
-var observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        console.log(mutation)
-        console.log(Month.getAttribute('month'))
-        let nameMonth = Month.getAttribute('month');
-        calendarInternal.DateNum(nameMonth);
-        if(mutation){
-            
-        }
-    }) 
-})    
-
-observer.observe(
-    Month,
-    {
-        attributes: true,
-        attributeOldValue: true,
-    }
-);
+calendarInternal.getNameMonth();
+calendarInternal.setNameMonth();
+calendarInternal.colorCalendar();
 
