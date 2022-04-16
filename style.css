@@ -78,7 +78,7 @@
 }
 
 .user-task:hover{
-    border: 3px solid blue;
+    border: 3px solid yellow;
 }
 
 .user-task:nth-child(1){
