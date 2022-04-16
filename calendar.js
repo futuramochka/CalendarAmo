@@ -252,3 +252,89 @@ class Calendar{
     }
 }
 
+class Diary extends Calendar{
+    
+    constractDiary(){
+        let diary = document.querySelector('.diary-day');
+        console.log(diary);
+
+        diary.innerHTML = this.table;
+        let table = document.querySelector('.diary-day .table-calendar');
+        table.insertAdjacentHTML('beforeend', this.thead);
+        let thead = document.querySelector('.diary-day thead');
+        thead.insertAdjacentHTML('beforeend', this.row)
+        let row = document.querySelector('.diary-day .table-row');
+        this.columnHead = "<th class='user'></th>"
+        let amountUsers = 5;
+        for(let i = 0; i < amountUsers; i++){
+            row.insertAdjacentHTML('beforeend', this.columnHead)
+        }
+        table.insertAdjacentHTML('beforeend', this.tbody);
+        let tbody = document.querySelector('.diary-day tbody')
+        let clockMinRow = 30;
+        for(let i = 0; i < clockMinRow; i++){
+            tbody.insertAdjacentHTML('beforeend', this.row)
+        }
+        let rowTbody = document.querySelectorAll('.diary-day tbody .table-row');
+        let columnBody = "<td class='user-task'></td>";
+        for(let i = 0; i < rowTbody.length; i++){
+            for(let y = 0; y < amountUsers; y++){
+                rowTbody[i].insertAdjacentHTML('beforeend', columnBody)
+            }
+        }
+    }
+
+    setHeaderUserDiary(){
+        let columnNameTime = document.querySelector('thead .user');
+        columnNameTime.innerHTML = "Время";
+
+        let columnNameUser = document.querySelectorAll('thead .user');
+        const objNameUsers = {
+            1 : "Сергей",
+            2 : "Виталий",
+            3 : "Александр",
+            4 : "Анастасия",
+            5 : "Лиза"
+        };
+
+        for(let i = 0; i < columnNameUser.length; i++){
+            if(i > 0){
+                columnNameUser[i].innerHTML = objNameUsers[i]
+            }
+        }
+    }
+
+    setTimeInTable(){
+        let startTime = 8;
+        let Minutes = 3;
+        let nullMinutes = 0;
+        let delimiter = ':';
+        let columnTimeEven = document.querySelectorAll('.table-row:nth-child(2n+1) .user-task:nth-child(1)');
+        for(let i = 0; i < columnTimeEven.length; i++){
+            columnTimeEven[i].innerHTML = startTime+delimiter+nullMinutes+nullMinutes;
+            startTime++;
+        }
+        startTime = 8;
+        let columnTimeNoteven = document.querySelectorAll('.table-row:nth-child(2n) .user-task:nth-child(1)');
+        console.log(columnTimeNoteven)
+        for(let i = 0; i < columnTimeNoteven.length; i++){
+            columnTimeNoteven[i].innerHTML = startTime+delimiter+Minutes+nullMinutes;
+            startTime++;
+        }
+    }
+
+    takeTask(){
+        let columnTask = document.querySelectorAll('.user-task');
+        columnTask.forEach(function(item, index){
+            if(item.innerHTML == ""){
+                item.addEventListener('click', function(evt){
+                    console.log(evt.currentTarget);
+                    let value = evt.currentTarget;
+                    value.innerHTML = "Забранировано";
+                    value.style.border = "3px solid blue";
+                })
+            }
+        })
+    }
+}
+

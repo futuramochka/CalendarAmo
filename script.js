@@ -1,3 +1,4 @@
+
 let calendarInternal = new Calendar();
 calendarInternal.createTableCalendar();
 
@@ -8,3 +9,9 @@ calendarInternal.DateNum(nameMonth);
 calendarInternal.getNameMonth();
 calendarInternal.setNameMonth();
 calendarInternal.colorCalendar();
+
+let diary = new Diary();
+diary.constractDiary();
+diary.setTimeInTable();
+diary.setHeaderUserDiary();
+diary.takeTask();
