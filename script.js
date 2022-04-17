@@ -12,6 +12,5 @@ calendarInternal.colorCalendar();
 
 let diary = new Diary();
 diary.constractDiary();
-diary.setTimeInTable();
 diary.setHeaderUserDiary();
 diary.takeTask();

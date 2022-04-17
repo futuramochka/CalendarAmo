@@ -304,37 +304,46 @@ class Diary extends Calendar{
         }
     }
 
-    setTimeInTable(){
-        let startTime = 8;
-        let Minutes = 3;
-        let nullMinutes = 0;
-        let delimiter = ':';
-        let columnTimeEven = document.querySelectorAll('.table-row:nth-child(2n+1) .user-task:nth-child(1)');
-        for(let i = 0; i < columnTimeEven.length; i++){
-            columnTimeEven[i].innerHTML = startTime+delimiter+nullMinutes+nullMinutes;
-            startTime++;
-        }
-        startTime = 8;
-        let columnTimeNoteven = document.querySelectorAll('.table-row:nth-child(2n) .user-task:nth-child(1)');
-        console.log(columnTimeNoteven)
-        for(let i = 0; i < columnTimeNoteven.length; i++){
-            columnTimeNoteven[i].innerHTML = startTime+delimiter+Minutes+nullMinutes;
-            startTime++;
-        }
+    popupWindowTask(Y){
+        let popup = document.querySelector('.popup');
+        popup.innerHTML = "<div class='popup-list' style='top: "+Y+"px'>"+
+        "<input type='text' placeholder='Введите название задачи' class='text-field'>"+
+        "<textarea placeholder='Введите текст задачи' value='0' rows='8' cols='50'>"+
+        "</textarea>"+
+        "<div class='time-save'>"+
+        "<label id='time'> C </label>"+
+        "<input type='time' for='time'>"+
+        "<label> До </label>"+
+        "<input type='time'>"+
+        "</div>"+
+        "<div class='buttons'>"+
+        "<button class='add'>Сохранить</button>"+
+        "<button class='close'>Закрыть</button>"+
+        "</div>"+
+        "</div>";
+        let buttonClose = document.querySelector('.close');
+        buttonClose.addEventListener('click', function(){
+            let popup = document.querySelector('.popup-list');
+            popup.style.display = "none";
+        })
     }
 
     takeTask(){
         let columnTask = document.querySelectorAll('.user-task');
-        columnTask.forEach(function(item, index){
-            if(item.innerHTML == ""){
-                item.addEventListener('click', function(evt){
-                    console.log(evt.currentTarget);
-                    let value = evt.currentTarget;
-                    value.innerHTML = "Забранировано";
-                    value.style.border = "3px solid blue";
+        for(let i = 0; i < columnTask.length; i++){
+            columnTask[i].addEventListener('click', function(evt){
+                let currentColumn = evt.currentTarget;
+                let Y = evt.pageY;
+                diary.popupWindowTask(Y);
+                let buttonSave = document.querySelector('.add');
+                buttonSave.addEventListener('click', function(evt){
+                    let inputName = document.querySelector('.text-field');
+                    currentColumn.innerHTML = inputName.value+"узнать больше...";
+                    let popup = document.querySelector('.popup-list');
+                    popup.style.display = "none";
                 })
-            }
-        })
+            })
+        }
     }
 }
 

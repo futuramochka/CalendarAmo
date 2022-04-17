@@ -6,6 +6,7 @@
 .user,
 .user-task{
     border: 1px solid black;
+    height: 30px;
 }
 .table-day:nth-child(1){
     color: #ff0000;
@@ -78,7 +79,7 @@
 }
 
 .user-task:hover{
-    border: 3px solid yellow;
+    border: 3px solid black;
 }
 
 .user-task:nth-child(1){
@@ -86,4 +87,69 @@
     font-size: 18px;
     font-weight: bold;
     text-align: center;
+}
+
+.task-danger{
+    border: 3px solid blue;
+}
+
+.popup-list{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 900px;
+    height: 300px;
+    margin-left: 200px;
+    background: rgba(148, 132, 132, 0.5);
+}
+
+.popup-list input,
+.popup-list textarea{
+    width: 700px;
+    font-size: 18px;
+}
+
+.popup-list input{
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+.popup-list input::placeholder,
+.popup-list textarea::placeholder{
+    font-size: 18px;
+    font-weight: bold;
+    color: gray;
+}
+
+.buttons{
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+.add,
+.close{
+    width: 150px;
+    height: 30px;
+    background-color: lightgreen;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.close{
+    margin-left: 20px;
+}
+
+.time-save{
+    display: flex;
+    width: 400px;
+    margin-top: 20px;
+}
+
+.time-save label{
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+    font-weight: bold;
 }
