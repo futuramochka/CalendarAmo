@@ -333,6 +333,7 @@ class Diary extends Calendar{
         for(let i = 0; i < columnTask.length; i++){
             columnTask[i].addEventListener('click', function(evt){
                 let currentColumn = evt.currentTarget;
+                currentColumn.classList.toggle('task-danger');
                 let Y = evt.pageY;
                 diary.popupWindowTask(Y);
                 let buttonSave = document.querySelector('.add');
