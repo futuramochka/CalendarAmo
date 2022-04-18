@@ -68,14 +68,18 @@
 
 .diary-day .table-calendar{
     width: inherit;
+    border-collapse: collapse;
+    border: 1px solid rgb(206, 202, 202);
 }
 
 .user{
     padding: 5px;
+    border: 1px solid rgb(206, 202, 202);
 }
 
 .user-task{
     cursor: pointer;
+    border: 1px solid rgb(206, 202, 202);
 }
 
 .user-task:hover{
@@ -152,4 +156,8 @@
     margin-right: 5px;
     font-size: 20px;
     font-weight: bold;
+}
+
+.to{
+    margin-right: 5px;
 }

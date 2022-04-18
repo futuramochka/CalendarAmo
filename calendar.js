@@ -250,6 +250,9 @@ class Calendar{
             }
         }
     }
+
+
+
 }
 
 class Diary extends Calendar{
@@ -285,9 +288,6 @@ class Diary extends Calendar{
     }
 
     setHeaderUserDiary(){
-        let columnNameTime = document.querySelector('thead .user');
-        columnNameTime.innerHTML = "Время";
-
         let columnNameUser = document.querySelectorAll('thead .user');
         const objNameUsers = {
             1 : "Сергей",
@@ -298,9 +298,7 @@ class Diary extends Calendar{
         };
 
         for(let i = 0; i < columnNameUser.length; i++){
-            if(i > 0){
-                columnNameUser[i].innerHTML = objNameUsers[i]
-            }
+            columnNameUser[i].innerHTML = objNameUsers[i+1]
         }
     }
 
@@ -312,20 +310,15 @@ class Diary extends Calendar{
         "</textarea>"+
         "<div class='time-save'>"+
         "<label id='time'> C </label>"+
-        "<input type='time' for='time'>"+
+        "<input type='time' class='to'>"+
         "<label> До </label>"+
-        "<input type='time'>"+
+        "<input type='time' class='do'>"+
         "</div>"+
         "<div class='buttons'>"+
         "<button class='add'>Сохранить</button>"+
-        "<button class='close'>Закрыть</button>"+
+        "<button class='close'>Убрать задачу</button>"+
         "</div>"+
         "</div>";
-        let buttonClose = document.querySelector('.close');
-        buttonClose.addEventListener('click', function(){
-            let popup = document.querySelector('.popup-list');
-            popup.style.display = "none";
-        })
     }
 
     takeTask(){
@@ -333,15 +326,19 @@ class Diary extends Calendar{
         for(let i = 0; i < columnTask.length; i++){
             columnTask[i].addEventListener('click', function(evt){
                 let currentColumn = evt.currentTarget;
-                currentColumn.classList.toggle('task-danger');
+                currentColumn.classList.add('task-danger');
                 let Y = evt.pageY;
                 diary.popupWindowTask(Y);
                 let buttonSave = document.querySelector('.add');
                 buttonSave.addEventListener('click', function(evt){
-                    let inputName = document.querySelector('.text-field');
-                    currentColumn.innerHTML = inputName.value+"узнать больше...";
                     let popup = document.querySelector('.popup-list');
                     popup.style.display = "none";
+                })
+                let buttonClose = document.querySelector('.close');
+                buttonClose.addEventListener('click', function(){
+                    let popup = document.querySelector('.popup-list');
+                    popup.style.display = "none";
+                    currentColumn.classList.remove('task-danger');
                 })
             })
         }
