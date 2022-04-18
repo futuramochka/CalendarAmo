@@ -1,4 +1,18 @@
 class Calendar{
+    #objNameMonth = {
+        0 : "Январь",
+        1 : "Февраль",
+        2 : "Март",
+        3 : "Апрель",
+        4 : "Май",
+        5 : "Июнь",
+        6 : "Июль",
+        7 : "Август",
+        8 : "Сентябрь",
+        9 : "Октябрь",
+        10 : "Ноябрь",
+        11 : "Декабрь"
+    }
     constructor(){
         //For Table Calendar
         this.table = "<table class='table-calendar'></table>";
@@ -24,20 +38,6 @@ class Calendar{
         this.buttonPrev = "<button num='1' class='prev button'>&larr;</button>";
         this.buttonNext = "<button num='2' class='next button'>&rarr;</button>";
         this.nameMonth = "<p month='3' class='name-month'></p>";
-        this.objNameMonth = {
-            0 : "Январь",
-            1 : "Февраль",
-            2 : "Март",
-            3 : "Апрель",
-            4 : "Май",
-            5 : "Июнь",
-            6 : "Июль",
-            7 : "Август",
-            8 : "Сентябрь",
-            9 : "Октябрь",
-            10 : "Ноябрь",
-            11 : "Декабрь"
-        }
     }
 
     createTableCalendar(){
@@ -90,7 +90,7 @@ class Calendar{
         todayMonth = Number(todayMonth);
         
         //Показываем текущий месяц на странице
-        nameMonth.innerHTML = this.objNameMonth[Number(todayMonth)]+" 2022г.";
+        nameMonth.innerHTML = this.#objNameMonth[Number(todayMonth)]+" 2022г.";
         
         return this;
     }
