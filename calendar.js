@@ -260,9 +260,10 @@ class Diary extends Calendar{
     constractDiary(){
         let diary = document.querySelector('.diary-day');
         console.log(diary);
-
         diary.innerHTML = this.table;
         let table = document.querySelector('.diary-day .table-calendar');
+        let caption = "<caption><h2>Задачи на день</h2></caption>";
+        table.insertAdjacentHTML('beforeend', caption);
         table.insertAdjacentHTML('beforeend', this.thead);
         let thead = document.querySelector('.diary-day thead');
         thead.insertAdjacentHTML('beforeend', this.row)
