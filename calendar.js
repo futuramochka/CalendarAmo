@@ -252,3 +252,98 @@ class Calendar{
     }
 }
 
+class Diary extends Calendar{
+    
+    constractDiary(){
+        let diary = document.querySelector('.diary-day');
+        console.log(diary);
+
+        diary.innerHTML = this.table;
+        let table = document.querySelector('.diary-day .table-calendar');
+        table.insertAdjacentHTML('beforeend', this.thead);
+        let thead = document.querySelector('.diary-day thead');
+        thead.insertAdjacentHTML('beforeend', this.row)
+        let row = document.querySelector('.diary-day .table-row');
+        this.columnHead = "<th class='user'></th>"
+        let amountUsers = 5;
+        for(let i = 0; i < amountUsers; i++){
+            row.insertAdjacentHTML('beforeend', this.columnHead)
+        }
+        table.insertAdjacentHTML('beforeend', this.tbody);
+        let tbody = document.querySelector('.diary-day tbody')
+        let clockMinRow = 30;
+        for(let i = 0; i < clockMinRow; i++){
+            tbody.insertAdjacentHTML('beforeend', this.row)
+        }
+        let rowTbody = document.querySelectorAll('.diary-day tbody .table-row');
+        let columnBody = "<td class='user-task'></td>";
+        for(let i = 0; i < rowTbody.length; i++){
+            for(let y = 0; y < amountUsers; y++){
+                rowTbody[i].insertAdjacentHTML('beforeend', columnBody)
+            }
+        }
+    }
+
+    setHeaderUserDiary(){
+        let columnNameTime = document.querySelector('thead .user');
+        columnNameTime.innerHTML = "Время";
+
+        let columnNameUser = document.querySelectorAll('thead .user');
+        const objNameUsers = {
+            1 : "Сергей",
+            2 : "Виталий",
+            3 : "Александр",
+            4 : "Анастасия",
+            5 : "Лиза"
+        };
+
+        for(let i = 0; i < columnNameUser.length; i++){
+            if(i > 0){
+                columnNameUser[i].innerHTML = objNameUsers[i]
+            }
+        }
+    }
+
+    popupWindowTask(Y){
+        let popup = document.querySelector('.popup');
+        popup.innerHTML = "<div class='popup-list' style='top: "+Y+"px'>"+
+        "<input type='text' placeholder='Введите название задачи' class='text-field'>"+
+        "<textarea placeholder='Введите текст задачи' value='0' rows='8' cols='50'>"+
+        "</textarea>"+
+        "<div class='time-save'>"+
+        "<label id='time'> C </label>"+
+        "<input type='time' for='time'>"+
+        "<label> До </label>"+
+        "<input type='time'>"+
+        "</div>"+
+        "<div class='buttons'>"+
+        "<button class='add'>Сохранить</button>"+
+        "<button class='close'>Закрыть</button>"+
+        "</div>"+
+        "</div>";
+        let buttonClose = document.querySelector('.close');
+        buttonClose.addEventListener('click', function(){
+            let popup = document.querySelector('.popup-list');
+            popup.style.display = "none";
+        })
+    }
+
+    takeTask(){
+        let columnTask = document.querySelectorAll('.user-task');
+        for(let i = 0; i < columnTask.length; i++){
+            columnTask[i].addEventListener('click', function(evt){
+                let currentColumn = evt.currentTarget;
+                let Y = evt.pageY;
+                diary.popupWindowTask(Y);
+                let buttonSave = document.querySelector('.add');
+                buttonSave.addEventListener('click', function(evt){
+                    let inputName = document.querySelector('.text-field');
+                    currentColumn.innerHTML = inputName.value+"узнать больше...";
+                    let popup = document.querySelector('.popup-list');
+                    popup.style.display = "none";
+                })
+            })
+        }
+    }
+}
+
