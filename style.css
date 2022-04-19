@@ -134,11 +134,33 @@
 
 .add,
 .close{
-    width: 150px;
-    height: 30px;
-    background-color: lightgreen;
-    border-radius: 10px;
     cursor: pointer;
+
+    text-decoration: none;
+    display: inline-block;
+    padding: 7px 30px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 40px 40px #F137A6 inset, 0 0 0 0 #F137A6;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: rgb(255, 255, 255);
+    transition: .15s ease-in-out;
+}
+
+.close:hover{
+    box-shadow: 0 0 10px 0 #F137A6 inset, 0 0 10px 4px #F137A6;
+    color: #0c0c0c;
+}
+
+.add{
+    box-shadow: 0 0 40px 40px #28b52f inset, 0 0 0 0 #37f1407e;
+}
+
+.add:hover{
+    box-shadow: 0 0 10px 0 #37f184 inset, 0 0 10px 4px #37f1e1;
+    color: #050505;
 }
 
 .close{
@@ -148,7 +170,7 @@
 .time-save{
     display: flex;
     width: 400px;
-    margin-top: 20px;
+    margin-top: 48px;
 }
 
 .time-save label{
