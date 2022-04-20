@@ -255,7 +255,7 @@ class Calendar{
         let popup = document.querySelector('.popup');
         popup.innerHTML = "<div class='popup-list' style='top: "+Y+"px'>"+
         "<input type='text' placeholder='Введите название задачи' class='text-field'>"+
-        "<textarea placeholder='Введите текст задачи' value='0' rows='8' cols='50'>"+
+        "<textarea class='body-text' placeholder='Введите текст задачи' value='0' rows='8' cols='50'>"+
         "</textarea>"+
         "<div class='time-save'>"+
         "<label id='time'> C </label>"+
@@ -274,11 +274,25 @@ class Calendar{
         let dateDays = document.querySelectorAll('.table-day--num');
         dateDays.forEach(function(item, index){
             item.addEventListener('click', function(evt){
-                let topPixel = 150;
+                let topPixel = 50;
                 calendarInternal.popupWindowTask(topPixel);
                 let close = document.querySelector('.close');
                 close.addEventListener('click', function(){
                     document.querySelector('.popup-list').style.display = "none"
+                })
+                let add = document.querySelector('.add');
+                add.addEventListener('click', function(evt){
+                    const objTask = {};
+                    let headerTask = document.querySelector('.text-field');
+                    objTask.header = headerTask.value;
+                    let bodyTask = document.querySelector('.body-text');
+                    objTask.body = bodyTask.value;
+                    let atTime = document.querySelector('.to');
+                    objTask.to = atTime.value;
+                    let doTime = document.querySelector('.do');
+                    objTask.do = doTime.value;
+                    document.querySelector('.popup-list').style.display = "none";
+                    console.log(objTask);
                 })
             })
         })
