@@ -291,6 +291,10 @@ class Calendar{
                     objTask.to = atTime.value;
                     let doTime = document.querySelector('.do');
                     objTask.do = doTime.value;
+                    let month = document.querySelector('.name-month');
+                    let getMonth = month.getAttribute('month');
+                    objTask.month = getMonth;
+                    objTask.day = item.innerHTML;
                     document.querySelector('.popup-list').style.display = "none";
                     console.log(objTask);
                 })
