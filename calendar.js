@@ -250,6 +250,39 @@ class Calendar{
             }
         }
     }
+
+    popupWindowTask(Y){
+        let popup = document.querySelector('.popup');
+        popup.innerHTML = "<div class='popup-list' style='top: "+Y+"px'>"+
+        "<input type='text' placeholder='Введите название задачи' class='text-field'>"+
+        "<textarea placeholder='Введите текст задачи' value='0' rows='8' cols='50'>"+
+        "</textarea>"+
+        "<div class='time-save'>"+
+        "<label id='time'> C </label>"+
+        "<input type='time' class='to'>"+
+        "<label> До </label>"+
+        "<input type='time' class='do'>"+
+        "</div>"+
+        "<div class='buttons'>"+
+        "<button class='add'>Сохранить</button>"+
+        "<button class='close'>Закрыть</button>"+
+        "</div>"+
+        "</div>";
+    }
+
+    getTask(){
+        let dateDays = document.querySelectorAll('.table-day--num');
+        dateDays.forEach(function(item, index){
+            item.addEventListener('click', function(evt){
+                let topPixel = 150;
+                calendarInternal.popupWindowTask(topPixel);
+                let close = document.querySelector('.close');
+                close.addEventListener('click', function(){
+                    document.querySelector('.popup-list').style.display = "none"
+                })
+            })
+        })
+    }
 }
 
 class Diary extends Calendar{
@@ -259,8 +292,6 @@ class Diary extends Calendar{
         console.log(diary);
         diary.innerHTML = this.table;
         let table = document.querySelector('.diary-day .table-calendar');
-        let caption = "<caption><h2>Задачи на день</h2></caption>";
-        table.insertAdjacentHTML('beforeend', caption);
         table.insertAdjacentHTML('beforeend', this.thead);
         let thead = document.querySelector('.diary-day thead');
         thead.insertAdjacentHTML('beforeend', this.row)
